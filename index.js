@@ -35,7 +35,7 @@ app.post("/todos",(req,res)=>{
     });
 
 app.delete("/todos",(req, res)=> {
-      const {todoItem}=req.body;
+      const {todoitem}=req.body;
 
       const itemIndex =TODO_ITEMS.indexOf(todoitem);
 
@@ -49,11 +49,33 @@ app.delete("/todos",(req, res)=> {
         TODO_ITEMS.splice(itemIndex,1);
         return res.json({
           success:true,
-          data: todoItem,
+          data: todoitem,
         message:"ToDo item deleted successfully",      
         });
       }
     });
+
+    app.put("/todos",(req,res)=>{
+      const {oldtodoitem,newtodoitem}= req.body;
+
+       const itemIndex= TODO_ITEMS.indexOf(oldtodoitem);
+
+       if(itemIndex== -1){
+        return res.json({
+          success:false,
+          message:"olditem not found",
+        });
+       }
+       else{
+        TODO_ITEMS[itemIndex]=newtodoitem;
+        return res.json({
+          success:true,
+          data: newtodoitem,
+          message:"Todo item updated successfully",
+        });
+       }
+    });
+
 
 app.listen(PORT, () => { 
     console.log(`Server is running on port ${PORT}`);
