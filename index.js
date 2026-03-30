@@ -23,6 +23,17 @@ app.get("/todos",(req,res)=>{
       });
     });
 
+app.post("/todos",(req,res)=>{
+      const {todoitem} =req.body;
+      TODO_ITEMS.push(todoitem);
+      return res.json({
+        success:true,
+        data:todoitem,
+        message:"ToDo Item add successfully"
+      });
+
+    });
+
 app.listen(PORT, () => { 
     console.log(`Server is running on port ${PORT}`);
 });
