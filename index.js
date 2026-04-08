@@ -1,7 +1,14 @@
 import express from 'express';
+import cors from 'cors'; 
 
+ 
 const app = express();
-app.use(express.json());
+app.use(cors({
+  origin:"*",
+  methods:["GET","POST","DELETE","PUT"],
+}));
+app.use(express.json());   
+
 const PORT = 8020;
 
 const TODO_ITEMS = ["Buy groceries", "Clean the house", "Finish homework"];
@@ -11,8 +18,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/health', (req, res) => {
-    const success = true;
-    return res.json({message: 'Server is healthy!'});
+    return res.json({
+        success: true,
+        message: 'Server is healthy!'
+    });
 });
 
 app.get("/todos",(req,res)=>{
